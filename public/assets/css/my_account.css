@@ -1,0 +1,48 @@
+main {
+    margin: 100px 0;
+}
+
+h2 {
+    margin-left: 10px;
+    font-family: "subset-AvantGarde-Bold";
+    text-transform: uppercase;
+    font-size: 1.4rem;
+    color: rgb(204, 159, 83);
+}
+
+.account_wrapper {
+    width: 90vw;
+    margin: 0 auto;
+}
+
+.channel_display {
+    display: flex;
+}
+
+.chaine {
+    margin: 0 .5vw;
+}
+
+.chaine img {
+    width: 14vw;
+    border-radius: 5px;
+}
+
+.ligue_wrapper {
+    justify-content: space-evenly;
+}
+
+.club {
+    background-color: #ffffff18;
+    padding: 10px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.club img {
+    width: 4vw;
+    border-radius: 5px;
+}
+

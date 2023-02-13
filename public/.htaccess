@@ -1,0 +1,4 @@
+RewriteEngine on
+
+RewriteRule ^/telefoot/$ /telefoot/public/index.php?page=
+
