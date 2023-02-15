@@ -1,4 +1,13 @@
+# Activation du module de réécriture d'URL :
 RewriteEngine on
 
-RewriteRule ^/telefoot/$ /telefoot/public/index.php?page=
+# Règles de réécriture d'URL :
+RewriteRule ^add-account$   ./index.php?page=add-account
+RewriteRule ^create_account$   ./index.php?page=create_account
+RewriteRule ^login$   ./index.php?page=login
+RewriteRule ^logout$ ./logout.php
+RewriteRule ^my_account$ ./index.php?page=my_account
+RewriteRule ^reset_password$ ./index.php?page=reset_password
+RewriteRule ^new_password/([a-z0-9]+)$ ./index.php?page=new_password&token=$1
+
 

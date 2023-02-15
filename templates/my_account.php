@@ -35,7 +35,7 @@ $ligue2 = $query4->fetchAll(PDO::FETCH_ASSOC);
         <nav>
             <ul>
                 <a href="index.php"><li>Home</li></a>
-                <a href="index.php?page=my_account"><li>Telefoot Bar</li></a>
+                <a href="my_account"><li>Telefoot Bar</li></a>
             </ul>
             <div class="section-login">
                 <?php
@@ -47,7 +47,7 @@ $ligue2 = $query4->fetchAll(PDO::FETCH_ASSOC);
                         <a href="">live</a>
                     </div>
                     <div class="btn-login">
-                        <a href="index.php?page=logout">Se déconnecter</a>
+                        <a href="logout">Se déconnecter</a>
                     </div>
                     <?php
                 } else {

@@ -1,8 +1,8 @@
 <?php 
 class HomeView
 {
-    private $controller;
-    private $template;
+    public $controller;
+    public $template;
 
     public function __construct(HomeController $controller)
     {

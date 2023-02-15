@@ -14,10 +14,6 @@ class ConnectModel
     {
         
         $this->db = $db;
-        if (isset($_GET["id"])) {
-            $this->id = $_GET["id"];
-        }
-
         if (!empty($_POST)) {
             $this->firstname = trim(strip_tags($_POST["firstname"]));
             $this->lastname = trim(strip_tags($_POST["lastname"]));

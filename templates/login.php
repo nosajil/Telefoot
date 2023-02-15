@@ -22,7 +22,7 @@ if (!empty($_POST)) {
             "ip" => $_SERVER["REMOTE_ADDR"]
         ];
 
-        header("Location: index.php?page=my_account");
+        header("Location: my_account");
     } else {
         $message = "<p>Impossible de se connecter avec les informations saisies, veuillez réessayer</p>";
     }
@@ -57,11 +57,11 @@ if (!empty($_POST)) {
             </div>
         </form>
         <div class="link_wrapper">
-            <a href="index.php?page=reset_password">Vous avez oubliez votre mot de passe ?</a>
+            <a href="reset_password">Vous avez oubliez votre mot de passe ?</a>
             <hr>
             <p>Vous ne possèdez toujours pas de compte ?</p>
             <div class="btn-submit">
-                <a href="index.php?page=create_account">Créer un compte</a>
+                <a href="create_account">Créer un compte</a>
             </div>
         </div>
 

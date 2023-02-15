@@ -1,54 +1,3 @@
-<?php if (!empty($_POST)) {
-            $errors = array();
-        
-            $firstname = trim(strip_tags($_POST["firstname"]));
-            $lastname = trim(strip_tags($_POST["lastname"]));
-            $email = trim(strip_tags($_POST["email"]));
-            $cemail = trim(strip_tags($_POST["cemail"]));
-            $password = trim(strip_tags($_POST["password"]));
-            $cpassword = trim(strip_tags($_POST["cpassword"]));
-        
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $errors["email"] = "L'email n'est pas valide";
-            }
-
-            if ($email != $cemail) {
-                $errors["cemail"] = "Veuillez entrer des emails identiques !";
-            }
-        
-            // PASSWORD CONDITIONS
-            $uppercase = preg_match("/[A-Z]/", $password);
-            $lowercase = preg_match("/[a-z]/", $password);
-            $number = preg_match("/[0-9]/", $password);
-        
-            if (!$uppercase || !$lowercase || !$number || strlen($password) < 8) {
-                $errors["password"] = "Le mot de passe doit contenir 8 caractères minimum, une lettre majuscule, un chiffre et un caractère spécial";
-            }
-
-            if ($password != $cpassword) {
-                $errors["cpassword"] = "Veuillez entrer des mots de passes identiques !";
-            }
-        
-            if (empty($errors)) {
-                $hash = password_hash($password, PASSWORD_DEFAULT);
-                require("../config/index.php");
-                $dsn = "mysql:host=" . DB_HOSTNAME . ";dbname=" . DB_DATABASE;
-                $db = new PDO($dsn, DB_USERNAME, DB_PASSWORD);
-                $query = $db->prepare("INSERT INTO users (firstname, lastname, email, password) VALUES (:firstname, :lastname, :email, :password)");
-                $query->bindParam(":firstname", $firstname);
-                $query->bindParam(":lastname", $lastname);
-                $query->bindParam(":email", $email);
-                $query->bindParam(":password", $hash);
-        
-                if ($query->execute()) {
-                    header("Location: index.php?page=login");
-                } else {
-                    $errors["execute"] = "Un problème est survenu veuillez réessayer ultérieusement";
-                    echo "erreur ";
-                }
-            }
-        }
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -65,7 +14,7 @@
         <nav>
             <ul>
                 <a href="index.php"><li>Home</li></a>
-                <a href="index.php?page=my_account"><li>Telefoot Bar</li></a>
+                <a href="my_account"><li>Telefoot Bar</li></a>
             </ul>
             <div class="section-login">
                 <?php
@@ -77,7 +26,7 @@
                         <a href="">live</a>
                     </div>
                     <div class="btn-login">
-                        <a href="index.php?page=logout">Se déconnecter</a>
+                        <a href="logout">Se déconnecter</a>
                     </div>
                     <?php
                 } else {
@@ -86,7 +35,7 @@
                         <a href="">S'abonner</a>
                     </div>
                     <div class="btn-login">
-                        <a href="index.php?page=login">Se connecter</a>
+                        <a href="login">Se connecter</a>
                     </div>
                     <?php
                 }
@@ -97,52 +46,32 @@
     <main>
         <div class="account_wrapper container">
             <h1>Créer un compte</h1>
+            <?= $message ?>
             <form action="" method="post">
                 <div class="form-group">
                     <label for="inputEmail">Email *</label>
-                    <input type="email" name="email" id="inputEmail" value="<?= $email ?? "" ?>">
-                    <?php
-                        if (isset($errors["email"])) {
-                            ?>
-                            <p class="error"><?= $errors["email"] ?></p>
-                            <?php
-                        }
-                    ?>
+                    <input type="email" name="email" id="inputEmail" value="<?= isset($data["email"]) ? $data["email"] : "" ?>" 
+                    required />
                 </div>
                 <div class="form-group">
                     <label for="inputConfirmEmail">Confirmer email *</label>
-                    <input type="email" name="cemail" id="inputConfirmEmail" value="<?= $cemail ?? "" ?>">
-                    <!-- Condition pour confirmer l'email -->
-
-                    <p class="error"><?= !empty($errors["cemail"]) ? $errors["cemail"] : "" ?></p>
-
+                    <input type="email" name="cemail" id="inputConfirmEmail" value="<?= isset($data["cemail"]) ? $data["cemail"] : "" ?>" required />
                 </div>
                 <div class="form-group">
                     <label for="inputPassword">Mot de passe *</label>
-                    <input type="password" name="password" id="inputPassword" value="<?= $password ?? "" ?>">
-                    <?php 
-                        if (isset($errors["password"]) ) {
-                            ?>
-                            <p class="error"><?= $errors["password"] ?></p>
-                            <?php
-                        }
-                    ?>
+                    <input type="password" name="password" id="inputPassword" value="<?= isset($data["password"]) ? $data["password"] : "" ?>" required />
                 </div>
                 <div class="form-group">
                     <label for="inputConfirmPassword">Confirmer le mot de passe *</label>
-                    <input type="password" name="cpassword" id="inputConfirmPassword">
-                    <!-- Condition pour confirmer le mot de passe -->
-
-                    <p class="error"><?= !empty($errors["cpassword"]) ? $errors["cpassword"] : "" ?></p>
-
+                    <input type="password" name="cpassword" id="inputConfirmPassword" value="<?= isset($data["cpassword"]) ? $data["cpassword"] : "" ?>" required />
                 </div>
                 <div class="form-group">
                     <label for="inputFirstname">Prénom *</label>
-                    <input type="text" name="firstname" id="inputFirstname" value="<?= $firstname ?? "" ?>">
+                    <input type="text" name="firstname" id="inputFirstname" value="<?= isset($data["firstname"]) ? $data["firstname"] : "" ?>" required />
                 </div>
                 <div class="form-group">
                     <label for="inputLastname">Nom *</label>
-                    <input type="text" name="lastname" id="inputLastname" value="<?= $lastname ?? "" ?>">
+                    <input type="text" name="lastname" id="inputLastname" value="<?= isset($data["lastname"]) ? $data["lastname"] : "" ?>">
                 </div>
                 <div class="btn-submit">
                     <p>*Champs obligatoires</p>
